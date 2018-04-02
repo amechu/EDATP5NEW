@@ -67,7 +67,7 @@ void Worm::moveLeft(bool StartOrStop) {
 		{
 			if (tickCount < 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
 			{
-				if (((timerTick - 8) % 14) == 0)	//Cambio la posicion cuando el timer tick sea multiplo de 14
+				if ((tickCount-8!=0)&&(((tickCount - 8) % 14) == 0))	//Cambio la posicion cuando el timer tick sea multiplo de 14 me salteo el caso que tickcount igual a 0
 
 				{
 					if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
