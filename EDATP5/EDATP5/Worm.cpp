@@ -134,7 +134,7 @@ void Worm::Jump() {
 		}
 		else
 		{
-			if (velocity_y = -(VEL_JUMP * sin((60.0 / 180.0)*M_PI)))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
+			if (velocity_y = -((VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
 			{
 				velocity_y = 0;
 				velocity_x = 0;
