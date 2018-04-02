@@ -59,6 +59,10 @@ void Worm::moveLeft(bool StartOrStop) {
 			
 			
 		}
+		if (tickCount < 5 && (this->State == WormState::Walking))	//En caso de que se mantenga la tecla, me salteo el warmup
+		{
+			tickCount = 8;
+		}
 		if (this->State == WormState::Walking)
 		{
 			if (tickCount < 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
