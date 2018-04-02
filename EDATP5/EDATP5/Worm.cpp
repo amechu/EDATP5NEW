@@ -51,7 +51,7 @@ void Worm::moveLeft(bool StartOrStop) {
 
 
 void Worm::moveRight(bool StartOrStop) {
-
+	
 	if (timerTick < 5)			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
 	{
 		this->Direction = WormDirection::Left;
@@ -171,4 +171,9 @@ void Worm::clear_timerTick()
 Event Worm::get_last_event()
 {
 	return lastEvent;
+}
+
+void Worm::set_last_event(Event evento)
+{
+	lastEvent = evento;
 }
