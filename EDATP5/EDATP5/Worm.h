@@ -3,17 +3,9 @@
 #include <string>
 #include <array>
 #include <stdlib.h>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include "EventHandling.h"	//clase event
-
-#define SIZEPXLS_WORM 27
-#define FPS_W 50.0
-
-#define G 0.24
-#define G_PER_TICK (G/FPS_W)
-#define VEL_JUMP 4.5
-#define M_PI 3.14159265359
-
 
 enum class WormState
 {
@@ -55,8 +47,10 @@ private:
 	unsigned int jumpKey;
 	unsigned int moveLeftKey;
 	unsigned int moveRightKey;
-	const int Velocity = 4.5;
-	const int Gravity = 0.24;
+	double velocity_x;
+	double velocity_y;
+	const double Velocity = 4.5;
+	const double Gravity = 0.24;
 	unsigned int timerTick;
 	unsigned int nro_foto_move;
 	Event lastEvent;
