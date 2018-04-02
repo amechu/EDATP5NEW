@@ -1,6 +1,8 @@
 #include "Worm.h"
 using namespace std;
 
+//test
+
 Worm::Worm(const Userdata& Userdata, unsigned int keySet)
 {
 	switch (keySet) {
@@ -59,11 +61,15 @@ void Worm::moveLeft(bool StartOrStop) {
 			
 			
 		}
+		if (tickCount < 5 && (this->State == WormState::Walking))	//En caso de que se mantenga la tecla, me salteo el warmup
+		{
+			tickCount = 8;
+		}
 		if (this->State == WormState::Walking)
 		{
-			if (tickCount < 50 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
+			if (tickCount < 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
 			{
-				if (((timerTick - 8) % 14) == 0)	//Cambio la posicion cuando el timer tick sea multiplo de 14
+				if ((tickCount-8!=0)&&(((tickCount - 8) % 14) == 0))	//Cambio la posicion cuando el timer tick sea multiplo de 14 me salteo el caso que tickcount igual a 0
 
 				{
 					if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
@@ -74,7 +80,7 @@ void Worm::moveLeft(bool StartOrStop) {
 					}
 				}
 			}
-			else
+			else if (tickCount<50)
 			{
 				tickCount = 0;
 
@@ -89,35 +95,68 @@ void Worm::moveLeft(bool StartOrStop) {
 void Worm::moveRight(bool StartOrStop) {
 	if ((this->State == WormState::Iddle) || ((this->State == WormState::Walking) && (this->Direction == WormDirection::Right)))
 	{
-		if (timerTick < 5)			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
+		if (!StartOrStop)
 		{
-			this->Direction = WormDirection::Left;
-			nro_foto_move = 0;
-		}
-		else if (timerTick == 7)
-		{
-			nro_foto_move = 5;
-		}
-		//POr los 3 primeros ticks muestra las primeras fotos, entonces esta todo bien
-		else              //Si el ticker es mayor a 5 entonces debe moverse, se mueve lo que se tiene que mover en un segundo dividio los FPS
-		{
-			if (nro_foto_move > 13)	//Nro foto cambia cuando imprimo un worm
+			if ((tickCount < 5) && (this->State == WormState::Iddle))	//Si levanto y el ticker es menor a 5 entonces solo le cambio la direccion y lo dejo en idle
 			{
-				nro_foto_move = 4; //Indice para imprimir foto
-			}
-			if (nro_foto_move == 4)	//Solo cambio la posicion cuando se hayan mostrado las trece fotos
-			{
-				if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
-				{
-					this->State = WormState::Walking;
-					Position.X += 9;
 
+				this->Direction = WormDirection::Left;
+				this->State = WormState::Iddle;
+			}
+			else if (((tickCount <5) || (tickCount > 45)) && (this->State == WormState::Walking))	//Si me levantan la tecla entre los 900ms y los 1100ms entonces hago un ciclo e walking
+			{
+				this->State = WormState::Walking;
+				tickCount = 8; //Si tengo que seguir caminando me salteo el tiempo de warmup
+			}
+			else if ((tickCount>5) && (tickCount<50)) //Si tick count es mayor a 5 cuando se suelta la tecla camino
+			{
+				this->State = WormState::Walking;
+			}
+			else
+			{
+				this->State == WormState::Iddle;
+			}
+		}
+		if ((tickCount>5) && (tickCount<50))
+		{
+			this->State == WormState::Walking;
+		}
+
+		if ((tickCount < 5) && (this->State == WormState::Iddle))			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
+		{
+			this->Direction = WormDirection::Left;	//SI esta idle entonces es la primera vez que empiezo a moverme, espero hasta que pasen los primeros ticks y despues sigo
+
+
+		}
+		if (tickCount < 5 && (this->State == WormState::Walking))	//En caso de que se mantenga la tecla, me salteo el warmup
+		{
+			tickCount = 8;
+		}
+		if (this->State == WormState::Walking)
+		{
+			if (tickCount < 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
+			{
+				if ((tickCount - 8 != 0) && (((tickCount - 8) % 14) == 0))	//Cambio la posicion cuando el timer tick sea multiplo de 14 me salteo el caso que tickcount igual a 0
+
+				{
+					if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+					{
+
+						Position.X += 9;
+
+					}
 				}
 			}
+			else if (tickCount<50)
+			{
+				tickCount = 0;
+
+			}
 		}
+		tickCount++;
+
 	}
 }
-
 
 void Worm::Jump(const Userdata& Userdata) {
 	if (this->State == WormState::Iddle || this->State == WormState::Jumping) {
