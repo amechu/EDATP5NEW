@@ -37,7 +37,7 @@ public:
 	~Worm();
 	void moveLeft(bool startorstop);
 	void moveRight(bool startorstop);
-	void Jump();
+	void Jump(const Userdata& Userdata);
 	void Draw(const Userdata& Userdata);
 	void Refresh(const Userdata& Userdata);
 	void increase_timerTick();
@@ -55,8 +55,8 @@ private:
 	unsigned int jumpKey;
 	unsigned int moveLeftKey;
 	unsigned int moveRightKey;
-	double velocity_y;
-	double velocity_x;
+	const int Velocity = 4.5;
+	const int Gravity = 0.24;
 	unsigned int timerTick;
 	unsigned int nro_foto_move;
 	Event lastEvent;

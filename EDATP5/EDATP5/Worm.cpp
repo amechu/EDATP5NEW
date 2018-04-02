@@ -119,46 +119,37 @@ void Worm::moveRight(bool StartOrStop) {
 }
 
 
-void Worm::Jump() {
-	if ((this->State == WormState::Iddle) || (this->State == WormState::Jumping))
-	{
-		if (timerTick = 0)
-		{
-			velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
-			velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
-			this->State = WormState::Jumping;
-		}
-		else
-		{
-			if (velocity_y = -(VEL_JUMP * sin((60.0 / 180.0)*M_PI)))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
-			{
-				velocity_y = 0;
-				velocity_x = 0;
-				this->State = WormState::Iddle;
-				//Terminar salto
+void Worm::Jump(const Userdata& Userdata) {
+	if (this->State == WormState::Iddle || this->State == WormState::Jumping) {
+
+		this->tickCount++;
+		if (this->Direction == WormDirection::Left) {
+
+			if (this->tickCount <= 33) {
+				this->Position.X -= (this->Velocity * cos(M_PI / 3));
+				this->Position.Y = Userdata.GroundLevel + (this->Velocity * sin(M_PI / 3) * this->tickCount) - ((this->Gravity) / 2 * pow(this->tickCount, 2));
+				this->Draw(Userdata);
 			}
-			else
-			{
-				switch (this->Direction)	//el cambio de la posicion x dependera de la direccion del worm
-				{
-				case (WormDirection::Left):
-				{
-					Position.X -= velocity_x;
-					Position.Y += velocity_y;
-					break;
-				}
-				case(WormDirection::Right):
-				{
-					Position.X += velocity_x;
-					Position.Y += velocity_y;
-					break;
-				}
-				}
-				velocity_y -= G_PER_TICK;	//cambio al velocidad cada tick
+			else {
+				this->tickCount = 0;
+				this->State = WormState::Iddle;
+				this->Draw(Userdata);
+			}
+		}
+		else if (this->Direction == WormDirection::Right) {
+
+			if (this->tickCount <= 33) {
+				this->Position.X -= (this->Velocity * cos(M_PI / 3));
+				this->Position.Y = Userdata.GroundLevel + (this->Velocity * sin(M_PI / 3) * this->tickCount) - ((this->Gravity) / 2 * pow(this->tickCount, 2));
+				this->Draw(Userdata);
+			}
+			else {
+				this->tickCount = 0;
+				this->State = WormState::Iddle;
+				this->Draw(Userdata);
 			}
 		}
 	}
-
 }
 
 
@@ -212,7 +203,7 @@ void Worm::Draw(const Userdata& Userdata) {
 		case WormDirection::Right: {
 			switch (this->State) {
 				case WormState::Iddle: {
-					al_draw_bitmap(Userdata.WormWalk[0], 701, 616, ALLEGRO_FLIP_HORIZONTAL); break;
+					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL); break;
 				}
 				case WormState::Walking: {
 					if (this->tickCount <= 5) {
@@ -280,7 +271,7 @@ void Worm::Refresh(const Userdata& Userdata) {
 		}
 		case (WormState::Jumping):
 		{
-			Jump();
+			Jump(Userdata);
 			break;
 		}
 
@@ -318,3 +309,42 @@ void Worm::setPosition(int x, int y) {
 	this->Position.X = x;
 	this->Position.Y = y;
 }
+
+/*if ((this->State == WormState::Iddle) || (this->State == WormState::Jumping))
+	{
+		if (timerTick = 0)
+		{
+			velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
+			velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
+			this->State = WormState::Jumping;
+		}
+		else
+		{
+			if (velocity_y = -(VEL_JUMP * sin((60.0 / 180.0)*M_PI)))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
+			{
+				velocity_y = 0;
+				velocity_x = 0;
+				this->State = WormState::Iddle;
+				//Terminar salto
+			}
+			else
+			{
+				switch (this->Direction)	//el cambio de la posicion x dependera de la direccion del worm
+				{
+				case (WormDirection::Left):
+				{
+					Position.X -= velocity_x;
+					Position.Y += velocity_y;
+					break;
+				}
+				case(WormDirection::Right):
+				{
+					Position.X += velocity_x;
+					Position.Y += velocity_y;
+					break;
+				}
+				}
+				velocity_y -= G_PER_TICK;	//cambio al velocidad cada tick
+			}
+		}
+	}*/
