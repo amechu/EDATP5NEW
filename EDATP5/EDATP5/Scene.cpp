@@ -21,6 +21,8 @@ void Scene::Refresh(const Userdata& Userdata) {
 	
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	this->Draw(Userdata);
+	this->Worm1->Draw(Userdata);
+	this->Worm2->Draw(Userdata);
 	this->Worm1->Refresh(Userdata);
 	this->Worm2->Refresh(Userdata);
 	al_flip_display();

@@ -24,57 +24,94 @@ Worm::~Worm()
 
 
 void Worm::moveLeft(bool StartOrStop) {
-
-	if (timerTick < 5)			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
+	if ((this->State == WormState::Iddle) || ((this->State == WormState::Walking) && (this->Direction == WormDirection::Left)))	//Solamente se entra si el worm estaba quieto o si ya se estaba moviendo para la izquierda
 	{
-		this->Direction = WormDirection::Left;
-		nro_foto_move = 1;
-	}
-	//POr los 3 primeros ticks muestra las primeras fotos, entonces esta todo bien
-	else              //Si el ticker es mayor a 5 entonces debe moverse, se mueve lo que se tiene que mover en un segundo dividio los FPS
-	{
-		if (nro_foto_move > 13)	//Nro foto cambia cuando imprimo un worm
+		if (!StartOrStop)
 		{
-			nro_foto_move = 4; //Indice para imprimir foto
-		}
-		if (nro_foto_move == 4)	//Solo cambio la posicion cuando se hayan mostrado las trece fotos
-		{
-			if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+			if ((tickCount < 5)&&(this->State == WormState::Iddle))	//Si levanto y el ticker es menor a 5 entonces solo le cambio la direccion y lo dejo en idle
+			{
+				
+				this->Direction = WormDirection::Left;
+				this->State = WormState::Iddle;
+			}
+			else if (((tickCount <5) || (tickCount > 45))&&(this->State == WormState::Walking))	//Si me levantan la tecla entre los 900ms y los 1100ms entonces hago un ciclo e walking
 			{
 				this->State = WormState::Walking;
-				Position.X -= 9;
+			}
+			else if((tickCount>5)&&(tickCount<50)) //Si tick count es mayor a 5 cuando se suelta la tecla camino
+			{
+				this->State = WormState::Walking;
+			}
+			else
+			{
+				this->State == WormState::Iddle;
+			}
+		}
+		if ((tickCount>5)&&(tickCount<50))
+		{
+			this->State == WormState::Walking;
+		}
+		
+		if ((tickCount < 5) && (this->State == WormState::Iddle))			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
+		{
+			this->Direction = WormDirection::Left;	//SI esta idle entonces es la primera vez que empiezo a moverme, espero hasta que pasen los primeros ticks y despues sigo
+			
+			
+		}
+		if (this->State == WormState::Walking)
+		{
+			if (tickCount < 50 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
+			{
+				if (((timerTick - 8) % 14) == 0)	//Cambio la posicion cuando el timer tick sea multiplo de 14
+
+				{
+					if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+					{
+						
+						Position.X -= 9;
+
+					}
+				}
+			}
+			else
+			{
+				tickCount = 8;
 
 			}
 		}
+		tickCount++;
+
 	}
 }
 
 
 void Worm::moveRight(bool StartOrStop) {
-	
-	if (timerTick < 5)			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
+	if ((this->State == WormState::Iddle) || ((this->State == WormState::Walking) && (this->Direction == WormDirection::Right)))
 	{
-		this->Direction = WormDirection::Left;
-		nro_foto_move = 0;
-	}
-	else if (timerTick == 7)
-	{
-		nro_foto_move = 5;
-	}
-	//POr los 3 primeros ticks muestra las primeras fotos, entonces esta todo bien
-	else              //Si el ticker es mayor a 5 entonces debe moverse, se mueve lo que se tiene que mover en un segundo dividio los FPS
-	{
-		if (nro_foto_move > 13)	//Nro foto cambia cuando imprimo un worm
+		if (timerTick < 5)			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
 		{
-			nro_foto_move = 4; //Indice para imprimir foto
+			this->Direction = WormDirection::Left;
+			nro_foto_move = 0;
 		}
-		if (nro_foto_move == 4)	//Solo cambio la posicion cuando se hayan mostrado las trece fotos
+		else if (timerTick == 7)
 		{
-			if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+			nro_foto_move = 5;
+		}
+		//POr los 3 primeros ticks muestra las primeras fotos, entonces esta todo bien
+		else              //Si el ticker es mayor a 5 entonces debe moverse, se mueve lo que se tiene que mover en un segundo dividio los FPS
+		{
+			if (nro_foto_move > 13)	//Nro foto cambia cuando imprimo un worm
 			{
-				this->State = WormState::Walking;
-				Position.X += 9;
+				nro_foto_move = 4; //Indice para imprimir foto
+			}
+			if (nro_foto_move == 4)	//Solo cambio la posicion cuando se hayan mostrado las trece fotos
+			{
+				if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+				{
+					this->State = WormState::Walking;
+					Position.X += 9;
 
+				}
 			}
 		}
 	}
@@ -82,39 +119,42 @@ void Worm::moveRight(bool StartOrStop) {
 
 
 void Worm::Jump() {
-	if (timerTick = 0)
+	if ((this->State == WormState::Iddle) || (this->State == WormState::Jumping))
 	{
-		velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
-		velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
-		this->State = WormState::Jumping;
-	}
-	else
-	{
-		if (velocity_y = -(VEL_JUMP * sin((60.0 / 180.0)*M_PI)))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
+		if (timerTick = 0)
 		{
-			velocity_y = 0;
-			velocity_x = 0;
-			this->State = WormState::Iddle;
-			//Terminar salto
+			velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
+			velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
+			this->State = WormState::Jumping;
 		}
 		else
 		{
-			switch (this->Direction)	//el cambio de la posicion x dependera de la direccion del worm
+			if (velocity_y = -(VEL_JUMP * sin((60.0 / 180.0)*M_PI)))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
 			{
-			case (WormDirection::Left):
+				velocity_y = 0;
+				velocity_x = 0;
+				this->State = WormState::Iddle;
+				//Terminar salto
+			}
+			else
 			{
-				Position.X -= velocity_x;
-				Position.Y += velocity_y;
-				break;
+				switch (this->Direction)	//el cambio de la posicion x dependera de la direccion del worm
+				{
+				case (WormDirection::Left):
+				{
+					Position.X -= velocity_x;
+					Position.Y += velocity_y;
+					break;
+				}
+				case(WormDirection::Right):
+				{
+					Position.X += velocity_x;
+					Position.Y += velocity_y;
+					break;
+				}
+				}
+				velocity_y -= G_PER_TICK;	//cambio al velocidad cada tick
 			}
-			case(WormDirection::Right):
-			{
-				Position.X += velocity_x;
-				Position.Y += velocity_y;
-				break;
-			}
-			}
-			velocity_y -= G_PER_TICK;	//cambio al velocidad cada tick
 		}
 	}
 
