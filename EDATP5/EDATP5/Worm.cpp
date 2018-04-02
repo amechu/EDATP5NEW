@@ -130,32 +130,28 @@ void Worm::Draw(Userdata& Userdata) {
 					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL); al_flip_display(); break;
 				}
 				case WormState::Walking: {
-					if (this->tickCount <= 5) {
+					if (this->tickCount <= 5)
 						al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL);
-						al_flip_display();
-					}
-					else if (this->tickCount <= 8) {
+					else if (this->tickCount <= 8)
 						al_draw_bitmap(Userdata.WormWalk[tickCount-6], Position.X, Position.Y, NULL);
-						al_flip_display();
-					}
 					else if (this->tickCount <= 50) {
 						if(this->tickCount <= 16)
-							al_draw_bitmap(Userdata.WormWalk[tickCount - 5], Position.X, Position.Y, NULL);
-						if(this->tickCount <= 21)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 6], Position.X, Position.Y, NULL);
-						if(this->tickCount == 22)
+						else if(this->tickCount <= 21)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 7], Position.X, Position.Y, NULL);
+						else if (this->tickCount == 22)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
-						if(this->tickCount <=30)
-							al_draw_bitmap(Userdata.WormWalk[tickCount - 19], Position.X, Position.Y, NULL);
-						if(this->tickCount <=35)
+						else if(this->tickCount <=30)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 20], Position.X, Position.Y, NULL);
-						if(this->tickCount == 36)
+						else if(this->tickCount <=35)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 21], Position.X, Position.Y, NULL);
+						else if (this->tickCount == 36)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
-						if(this->tickCount <= 44)
-							al_draw_bitmap(Userdata.WormWalk[tickCount - 33], Position.X, Position.Y, NULL);
-						if(this->tickCount <= 49)
+						else if(this->tickCount <= 44)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, NULL);
-						if(this->tickCount == 50)
+						else if(this->tickCount <= 49)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 35], Position.X, Position.Y, NULL);
+						else if (this->tickCount == 50)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
 					}
 					break;
@@ -164,6 +160,7 @@ void Worm::Draw(Userdata& Userdata) {
 
 				}
 			}
+			break;
 		}
 		case WormDirection::Right: {
 			switch (this->State) {
@@ -182,21 +179,21 @@ void Worm::Draw(Userdata& Userdata) {
 					else if (this->tickCount <= 50) {
 						if (this->tickCount <= 16)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 5], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount <= 21)
+						else if (this->tickCount <= 21)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 6], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount == 22)
+						else if (this->tickCount == 22)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount <= 30)
+						else if (this->tickCount <= 30)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 19], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount <= 35)
+						else if (this->tickCount <= 35)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 20], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount == 36)
+						else if (this->tickCount == 36)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount <= 44)
+						else if (this->tickCount <= 44)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 33], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount <= 49)
+						else if (this->tickCount <= 49)
 							al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-						if (this->tickCount == 50)
+						else if (this->tickCount == 50)
 							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
 					}
 					break;
@@ -252,4 +249,14 @@ Event Worm::get_last_event()
 void Worm::set_last_event(Event evento)
 {
 	lastEvent = evento;
+}
+void Worm::setState(WormState state) {
+	this->State = state;
+}
+void Worm::setDirection(WormDirection direction) {
+	this->Direction = direction;
+}
+void Worm::setPosition(int x, int y) {
+	this->Position.X = x;
+	this->Position.Y = y;
 }

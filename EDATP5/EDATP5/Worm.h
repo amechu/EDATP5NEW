@@ -44,6 +44,9 @@ public:
 	void clear_timerTick();
 	Event get_last_event();
 	void set_last_event(Event evento);
+	void setState(WormState state);
+	void setDirection(WormDirection direction);
+	void setPosition(int x, int y);
 private:
 	Point Position;
 	WormState State = WormState::Iddle;

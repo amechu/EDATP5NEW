@@ -13,14 +13,19 @@ public:
 	~Userdata();
 	void LoadWormImages();
 
-	std::array<ALLEGRO_BITMAP*, 15> WormWalk; //Worm walk bitmaps
-	std::array<ALLEGRO_BITMAP*, 10> WormJump; //Worm jump bitmaps
-	ALLEGRO_BITMAP *Background;
+	const int GroundLevel = 616;
+	const int LeftWall = 701;
+	const int RightWall = 1212;
 
+	std::array<ALLEGRO_BITMAP*, 15> WormWalk; //Worm walk bitmaps
 	std::string str = "wwalk-F";
 	std::string ng = ".png";
+
+	std::array<ALLEGRO_BITMAP*, 10> WormJump; //Worm jump bitmaps
 	std::string STR = "wjump-F";
 	std::string NG = ".png";
+
+	ALLEGRO_BITMAP *Background;
 
 	//Worm 1 keys
 	unsigned int worm1KeySet[TotalActions] = { ALLEGRO_KEY_W, ALLEGRO_KEY_A, ALLEGRO_KEY_D };

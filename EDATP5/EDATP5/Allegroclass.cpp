@@ -31,6 +31,7 @@ bool Allegro::Init(Userdata& Userdata) {
 								if (Userdata.Background = al_load_bitmap("Scenario.png")) {
 									ret = true;
 									al_draw_bitmap(Userdata.Background, 0, 0, NULL);
+									al_flip_display();
 								}
 								else {
 									ret = false;
@@ -81,6 +82,8 @@ bool Allegro::Init(Userdata& Userdata) {
 		al_register_event_source(this->Queue, al_get_display_event_source(this->Display));
 		al_register_event_source(this->Queue, al_get_timer_event_source(this->Timer));
 		al_register_event_source(this->Queue, al_get_keyboard_event_source());
+
+		al_start_timer(this->Timer);
 	}
 	else {
 		for (int i = 0; i < 15; i++) {

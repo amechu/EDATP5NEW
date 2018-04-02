@@ -16,7 +16,7 @@ public:
 	ALLEGRO_EVENT_QUEUE* Queue;
 	ALLEGRO_DISPLAY* Display;
 
-	const float FPS = 50.0;
+	const float FPS = 100.0;
 	const float SCREEN_W = 1920;
 	const float SCREEN_H = 696;
 };

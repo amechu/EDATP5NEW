@@ -18,11 +18,17 @@ int main(void) {
 
 	if (Allegro.Init(Userdata)) {
 
+		//ESTO SE PODRIA CONDENSAR EN UNA FUNCION DEFINIDA EN MAIN QUE SE LLAME GAMEINIT//
 		Userdata.LoadWormImages();
 		Scene.LoadWorm1(Userdata, 1); //Worm inicializado con keyset 1
 		Scene.LoadWorm2(Userdata, 2); //Worm inicializado con keyset 2
-		
-		Scene.Worm1->Draw(Userdata); //DEBUG
+		Scene.Worm1->setState(WormState::Iddle);
+		Scene.Worm2->setState(WormState::Iddle);
+		Scene.Worm1->setDirection(WormDirection::Right);
+		Scene.Worm2->setDirection(WormDirection::Left);
+		Scene.Worm1->setPosition(Userdata.LeftWall + 100, Userdata.GroundLevel);
+		Scene.Worm2->setPosition(Userdata.RightWall - 100, Userdata.GroundLevel);
+		//////////////////////////////////////////////////////////////////////////////////
 
 		while (Event != Event::Quit) {
 
