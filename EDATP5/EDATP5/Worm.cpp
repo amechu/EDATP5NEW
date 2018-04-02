@@ -121,13 +121,13 @@ void Worm::Jump() {
 }
 
 
-void Worm::Draw(Userdata& Userdata) {
+void Worm::Draw(const Userdata& Userdata) {
 
 	switch (this->Direction) {
 		case WormDirection::Left: {
 			switch (this->State) {
 				case WormState::Iddle: {
-					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL); al_flip_display(); break;
+					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL); break;
 				}
 				case WormState::Walking: {
 					if (this->tickCount <= 5)
@@ -206,25 +206,30 @@ void Worm::Draw(Userdata& Userdata) {
 	}
 }
 
-void Worm::Refresh() {
+void Worm::Refresh(const Userdata& Userdata) {
 	switch (this->State)
 	{
-	case (WormState::Walking):
-	{
-		if (this->Direction == WormDirection::Left)
+		case (WormState::Iddle):
 		{
-			moveLeft(true);
+			this->Draw(Userdata);
+			break;
 		}
-		else {
-			moveRight(true);
+		case (WormState::Walking):
+		{
+			if (this->Direction == WormDirection::Left)
+			{
+				moveLeft(true);
+			}
+			else {
+				moveRight(true);
+			}
+			break;
 		}
-	}
-	break;
-	case (WormState::Jumping):
-	{
-		Jump();
-		break;
-	}
+		case (WormState::Jumping):
+		{
+			Jump();
+			break;
+		}
 
 
 	}

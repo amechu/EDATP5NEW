@@ -64,7 +64,6 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 			break;
 		}
 		case Event::Refresh: {
-			al_clear_to_color(al_map_rgb(0, 0, 0));
 			Scene.Refresh(Userdata);
 //			Scene.Worm1->increase_timerTick();	//incremento los tickers por cada refresh para poder moverme
 //			Scene.Worm2->increase_timerTick();

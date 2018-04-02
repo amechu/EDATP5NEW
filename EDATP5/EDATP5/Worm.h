@@ -38,8 +38,8 @@ public:
 	void moveLeft(bool startorstop);
 	void moveRight(bool startorstop);
 	void Jump();
-	void Draw(Userdata& Userdata);
-	void Refresh();
+	void Draw(const Userdata& Userdata);
+	void Refresh(const Userdata& Userdata);
 	void increase_timerTick();
 	void clear_timerTick();
 	Event get_last_event();
