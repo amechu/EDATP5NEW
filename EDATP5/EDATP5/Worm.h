@@ -22,8 +22,8 @@ class Worm
 public:
 	Worm(const Userdata& Userdata, unsigned int keySet);
 	~Worm();
-	void moveLeft();
-	void moveRight();
+	void moveLeft(bool);
+	void moveRight(bool);
 	void Jump();
 	void Draw(Userdata& Userdata);
 	void Refresh();

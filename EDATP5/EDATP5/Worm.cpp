@@ -23,12 +23,12 @@ Worm::~Worm()
 }
 
 
-void Worm::moveLeft() {
+void Worm::moveLeft(bool StartOrStop) {
 
 }
 
 
-void Worm::moveRight() {
+void Worm::moveRight(bool StartOrStop) {
 
 }
 
