@@ -11,11 +11,9 @@ public:
 	Allegro();
 	~Allegro();
 	bool Init(Userdata&);
-	void SetBackground();
 
 	ALLEGRO_TIMER* Timer;
 	ALLEGRO_EVENT_QUEUE* Queue;
-	ALLEGRO_BITMAP *Background;
 	ALLEGRO_DISPLAY* Display;
 
 	const float FPS = 50.0;

@@ -15,6 +15,7 @@ public:
 
 	std::array<ALLEGRO_BITMAP*, 15> WormWalk; //Worm walk bitmaps
 	std::array<ALLEGRO_BITMAP*, 10> WormJump; //Worm jump bitmaps
+	ALLEGRO_BITMAP *Background;
 
 	std::string str = "wwalk-F";
 	std::string ng = ".png";
