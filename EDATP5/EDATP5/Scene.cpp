@@ -13,12 +13,17 @@ Scene::~Scene()
 
 
 void Scene::Draw(const Userdata& Userdata) {
-
+	al_draw_bitmap(Userdata.Background, 0, 0, NULL);
 }
 
 
-void Scene::Refresh() {
-
+void Scene::Refresh(const Userdata& Userdata) {
+	
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	this->Draw(Userdata);
+	this->Worm1->Refresh();
+	this->Worm2->Refresh();
+	al_flip_display();
 }
 
 

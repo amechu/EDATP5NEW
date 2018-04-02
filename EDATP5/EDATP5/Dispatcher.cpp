@@ -9,7 +9,7 @@ Dispatcher::~Dispatcher()
 {
 }
 
-void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
+void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata, Allegro& Allegro) {
 	switch (Event) {
 		case Event::Jump1: {
 			(Scene.Worm1)->Jump();
@@ -47,12 +47,12 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 			Scene.Worm2->moveRight(true);
 			break;
 		}
-		case Event::moveRight2: {
+		case Event::moveRight2Stop: {
 			Scene.Worm2->moveRight(false);
 			break;
 		}
 		case Event::Refresh: {
-			Scene.Refresh();
+			Scene.Refresh(Userdata);
 			break;
 		}
 	}

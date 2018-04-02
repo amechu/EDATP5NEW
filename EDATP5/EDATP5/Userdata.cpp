@@ -4,6 +4,11 @@ using namespace std;
 
 Userdata::Userdata()
 {
+	for (int i = 0; i < 15; i++)
+		this->WormWalk[i] = NULL;
+	for (int i = 0; i < 10; i++)
+		this->WormJump[i] = NULL;
+	this->Background = NULL;
 }
 
 
@@ -17,6 +22,8 @@ Userdata::~Userdata()
 	for (int i = 0; i < 10; i++) {
 		al_destroy_bitmap(this->WormJump[i]);
 	}
+
+	al_destroy_bitmap(this->Background);
 }
 
 void Userdata::LoadWormImages() {
