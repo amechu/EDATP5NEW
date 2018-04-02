@@ -216,10 +216,10 @@ void Worm::Refresh() {
 	{
 		if (this->Direction == WormDirection::Left)
 		{
-			moveLeft();
+			moveLeft(true);
 		}
 		else {
-			moveRight();
+			moveRight(true);
 		}
 	}
 	break;
