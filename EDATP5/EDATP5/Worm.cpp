@@ -154,7 +154,27 @@ void Worm::Draw(Userdata& Userdata) {
 }
 
 void Worm::Refresh() {
+	switch (this->State)
+	{
+	case (WormState::Walking):
+	{
+		if (this->Direction == WormDirection::Left)
+		{
+			moveLeft();
+		}
+		else {
+			moveRight();
+		}
+	}
+	break;
+	case (WormState::Jumping):
+	{
+		Jump();
+		break;
+	}
 
+
+	}
 }
 
 

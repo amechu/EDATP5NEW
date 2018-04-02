@@ -18,7 +18,7 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 		case Event::moveLeft1: {
 			if (Scene.Worm1->get_last_event != Event::moveLeft1)
 				Scene.Worm1->clear_timerTick();		//Si mi evento anterior nofue un move left, tendre que poner el timer en 0, ya que se trata de una nueva fase
-			Scene.Worm1->moveLeft();
+			Scene.Worm1->moveLeft(true);
 			Scene.Worm1->set_last_event(Event::moveLeft1);
 			break;
 		}
@@ -29,7 +29,7 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 		case Event::moveRight1: {
 			if (Scene.Worm1->get_last_event != Event::moveRight1)
 				Scene.Worm1->clear_timerTick();
-			Scene.Worm1->moveRight();
+			Scene.Worm1->moveRight(true);
 			Scene.Worm1->set_last_event(Event::moveRight1);
 			break;
 		}
@@ -44,7 +44,7 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 		case Event::moveLeft2: {
 			if (Scene.Worm2->get_last_event != Event::moveLeft2)
 				Scene.Worm2->clear_timerTick();
-			Scene.Worm2->moveLeft();
+			Scene.Worm2->moveLeft(true);
 			Scene.Worm2->set_last_event(Event::moveLeft2);
 			break;
 		}
