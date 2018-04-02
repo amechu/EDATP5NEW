@@ -157,7 +157,13 @@ void Worm::Draw(const Userdata& Userdata) {
 					break;
 				}
 				case WormState::Jumping: {
-
+					if (tickCount <= 2)
+						al_draw_bitmap(Userdata.WormJump[tickCount], Position.X, Position.Y, NULL);
+					else if (tickCount <= 26)
+						al_draw_bitmap(Userdata.WormJump[3], Position.X, Position.Y, NULL);
+					else if (tickCount <= 33)
+						al_draw_bitmap(Userdata.WormJump[tickCount - 22], Position.X, Position.Y, NULL);
+					break;
 				}
 			}
 			break;
@@ -199,7 +205,13 @@ void Worm::Draw(const Userdata& Userdata) {
 					break;
 				}
 				case WormState::Jumping: {
-
+					if (tickCount <= 2)
+						al_draw_bitmap(Userdata.WormJump[tickCount], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					else if (tickCount <= 26)
+						al_draw_bitmap(Userdata.WormJump[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					else if (tickCount <= 33)
+						al_draw_bitmap(Userdata.WormJump[tickCount - 22], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					break;
 				}
 			}
 		}

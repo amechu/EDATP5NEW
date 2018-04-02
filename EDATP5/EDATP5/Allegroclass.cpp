@@ -31,7 +31,6 @@ bool Allegro::Init(Userdata& Userdata) {
 								if (Userdata.Background = al_load_bitmap("Scenario.png")) {
 									ret = true;
 									al_draw_bitmap(Userdata.Background, 0, 0, NULL);
-									al_flip_display();
 								}
 								else {
 									ret = false;
