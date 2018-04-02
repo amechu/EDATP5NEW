@@ -59,12 +59,12 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 			Scene.Worm2->set_last_event(Event::moveRight2);
 			break;
 		}
-		case Event::moveRight2: {
+		case Event::moveRight2Stop: {
 			Scene.Worm2->moveRight(false);
 			break;
 		}
 		case Event::Refresh: {
-			Scene.Refresh();
+			Scene.Refresh(Userdata);
 			Scene.Worm1->increase_timerTick();	//incremento los tickers por cada refresh para poder moverme
 			Scene.Worm2->increase_timerTick();
 			break;

@@ -130,7 +130,14 @@ void Worm::Draw(Userdata& Userdata) {
 					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL); al_flip_display(); break;
 				}
 				case WormState::Walking: {
-					al_draw_bitmap(Userdata.WormWalk[nro_foto_move++], Position.X, Position.Y, NULL); al_flip_display(); break;
+					if (this->tickCount < 5) {
+						al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL);
+						al_flip_display();
+					}
+					else if (this->tickCount < 8) {
+						al_draw_bitmap(Userdata.WormWalk[])
+					}
+					break;
 				}
 				case WormState::Jumping: {
 
