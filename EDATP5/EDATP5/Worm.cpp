@@ -330,25 +330,15 @@ void Worm::Refresh(const Userdata& Userdata) {
 }
 
 
-void Worm::increase_timerTick()
+void Worm::increase_timerTick() //DEBUG
 {
 	timerTick++;
 }
 
-void Worm::clear_timerTick()
+void Worm::clear_timerTick() //DEBUG
 {
 	timerTick = 0;
 	this->tickCount = 0;
-}
-
-Event Worm::get_last_event()
-{
-	return lastEvent;
-}
-
-void Worm::set_last_event(Event evento)
-{
-	lastEvent = evento;
 }
 void Worm::setState(WormState state) {
 	this->State = state;
