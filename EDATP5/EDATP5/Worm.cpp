@@ -130,12 +130,33 @@ void Worm::Draw(Userdata& Userdata) {
 					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL); al_flip_display(); break;
 				}
 				case WormState::Walking: {
-					if (this->tickCount < 5) {
+					if (this->tickCount <= 5) {
 						al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, NULL);
 						al_flip_display();
 					}
-					else if (this->tickCount < 8) {
-						al_draw_bitmap(Userdata.WormWalk[])
+					else if (this->tickCount <= 8) {
+						al_draw_bitmap(Userdata.WormWalk[tickCount-6], Position.X, Position.Y, NULL);
+						al_flip_display();
+					}
+					else if (this->tickCount <= 50) {
+						if(this->tickCount <= 16)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 5], Position.X, Position.Y, NULL);
+						if(this->tickCount <= 21)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 6], Position.X, Position.Y, NULL);
+						if(this->tickCount == 22)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
+						if(this->tickCount <=30)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 19], Position.X, Position.Y, NULL);
+						if(this->tickCount <=35)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 20], Position.X, Position.Y, NULL);
+						if(this->tickCount == 36)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
+						if(this->tickCount <= 44)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 33], Position.X, Position.Y, NULL);
+						if(this->tickCount <= 49)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, NULL);
+						if(this->tickCount == 50)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
 					}
 					break;
 				}
@@ -150,7 +171,35 @@ void Worm::Draw(Userdata& Userdata) {
 					al_draw_bitmap(Userdata.WormWalk[0], 701, 616, ALLEGRO_FLIP_HORIZONTAL); break;
 				}
 				case WormState::Walking: {
-					al_draw_bitmap(Userdata.WormWalk[nro_foto_move++], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL); break;
+					if (this->tickCount <= 5) {
+						al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						al_flip_display();
+					}
+					else if (this->tickCount <= 8) {
+						al_draw_bitmap(Userdata.WormWalk[tickCount - 6], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						al_flip_display();
+					}
+					else if (this->tickCount <= 50) {
+						if (this->tickCount <= 16)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 5], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount <= 21)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 6], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount == 22)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount <= 30)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 19], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount <= 35)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 20], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount == 36)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount <= 44)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 33], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount <= 49)
+							al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						if (this->tickCount == 50)
+							al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					}
+					break;
 				}
 				case WormState::Jumping: {
 
