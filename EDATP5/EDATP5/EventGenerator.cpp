@@ -38,6 +38,17 @@ Event EventGenerator::fetchEvent(ALLEGRO_EVENT_QUEUE* Queue, Userdata& Userdata)
 			else if (allegroEvent.keyboard.keycode == Userdata.worm2KeySet[Right])
 				Event = Event::moveRight2;
 		}
+		
+		else if (allegroEvent.type == ALLEGRO_EVENT_KEY_UP) {
+			if (allegroEvent.keyboard.keycode == Userdata.worm1KeySet[Left])
+				Event = Event::moveLeft1Stop;
+			else if (allegroEvent.keyboard.keycode == Userdata.worm1KeySet[Right])
+				Event = Event::moveRight1Stop;
+			else if (allegroEvent.keyboard.keycode == Userdata.worm2KeySet[Left])
+				Event = Event::moveLeft2Stop;
+			else if (allegroEvent.keyboard.keycode == Userdata.worm2KeySet[Right])
+				Event = Event::moveRight2Stop;
+		}
 	}
 	else
 		Event = Event::noEvent;
