@@ -37,7 +37,7 @@ void Worm::moveLeft(bool StartOrStop) {
 			else if (((tickCount <5) || (tickCount > 45))&&(this->State == WormState::Walking))	//Si me levantan la tecla entre los 900ms y los 1100ms entonces hago un ciclo e walking
 			{
 				this->State = WormState::Walking;
-				tickCount = 8; //Si tengo que seguir 
+				tickCount = 8; //Si tengo que seguir caminando me salteo el tiempo de warmup
 			}
 			else if((tickCount>5)&&(tickCount<50)) //Si tick count es mayor a 5 cuando se suelta la tecla camino
 			{
