@@ -2,6 +2,19 @@
 #include "Userdata.h"
 #include <string>
 #include <array>
+#include <stdlib.h>
+#include <math.h>
+#include "EventHandling.h"	//clase event
+
+#define SIZEPXLS_WORM 27
+#define FPS_W 50.0
+
+#define G 0.24
+#define G_PER_TICK (G/FPS_W)
+#define VEL_JUMP 4.5
+#define M_PI 3.14159265359
+
+
 enum class WormState
 {
 	Iddle, Walking, Jumping
@@ -22,11 +35,15 @@ class Worm
 public:
 	Worm(const Userdata& Userdata, unsigned int keySet);
 	~Worm();
-	void moveLeft(bool);
-	void moveRight(bool);
+	void moveLeft();
+	void moveRight();
 	void Jump();
 	void Draw(Userdata& Userdata);
 	void Refresh();
+	void increase_timerTick();
+	void clear_timerTick();
+	Event get_last_event();
+	void set_last_event(Event evento);
 private:
 	Point Position;
 	WormState State = WormState::Iddle;
@@ -35,5 +52,12 @@ private:
 	unsigned int jumpKey;
 	unsigned int moveLeftKey;
 	unsigned int moveRightKey;
+	double velocity_y;
+	double velocity_x;
+	unsigned int timerTick;
+	unsigned int nro_foto_move;
+	Event lastEvent;
 };
+
+
 
