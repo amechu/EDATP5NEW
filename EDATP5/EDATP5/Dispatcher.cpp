@@ -16,27 +16,23 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 			break;
 		}
 		case Event::moveLeft1: {
-
+			Scene.Worm1->setKeyPressed(WormDirection::Left, true);
 			Scene.Worm1->moveLeft(true, Userdata);
-			key_left1_held = true;
-
 			break;
 		}
 		case Event::moveLeft1Stop: {
+			Scene.Worm1->setKeyPressed(WormDirection::Left, false);
 			Scene.Worm1->moveLeft(false, Userdata);
-			key_left1_held = false;
 			break;
 		}
 		case Event::moveRight1: {
-
+			Scene.Worm1->setKeyPressed(WormDirection::Right, true);
 			Scene.Worm1->moveRight(true, Userdata);
-			key_right1_held = true;
-
 			break;
 		}
 		case Event::moveRight1Stop: {
+			Scene.Worm1->setKeyPressed(WormDirection::Right, false);
 			Scene.Worm1->moveRight(false, Userdata);
-			key_right1_held = false;
 			break;
 		}
 		case Event::Jump2: {
@@ -44,27 +40,23 @@ void Dispatcher::Dispatch(Event Event, Scene& Scene, Userdata& Userdata) {
 			break;
 		}
 		case Event::moveLeft2: {
-
+			Scene.Worm2->setKeyPressed(WormDirection::Left, true);
 			Scene.Worm2->moveLeft(true, Userdata);
-			key_left2_held = true;
-
 			break;
 		}
 		case Event::moveLeft2Stop: {
+			Scene.Worm2->setKeyPressed(WormDirection::Left, false);
 			Scene.Worm2->moveLeft(false, Userdata);
-			key_left2_held = false;
 			break;
 		}
 		case Event::moveRight2: {
-
+			Scene.Worm2->setKeyPressed(WormDirection::Right, true);
 			Scene.Worm2->moveRight(true, Userdata);
-			key_right2_held = true;
-
 			break;
 		}
 		case Event::moveRight2Stop: {
+			Scene.Worm2->setKeyPressed(WormDirection::Right, false);
 			Scene.Worm2->moveRight(false, Userdata);
-			key_right2_held = false;
 			break;
 		}
 		case Event::Refresh: {

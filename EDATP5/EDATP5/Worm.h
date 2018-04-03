@@ -6,10 +6,11 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "EventHandling.h"	//clase event
+#include <stdlib.h>
 
 enum class WormState
 {
-	Iddle, Walking, Jumping, WaitingToWalk, WaitingToReconfirm
+	Iddle, Walking, Jumping, WaitingToWalk, ReconfirmWalk
 };
 
 enum class WormDirection {
@@ -36,20 +37,20 @@ public:
 	void setState(WormState state);
 	void setDirection(WormDirection direction);
 	void setPosition(int x, int y);
+	void setKeyPressed(WormDirection dir, bool booli);
 private:
 	Point Position;
 	WormState State = WormState::Iddle;
 	WormDirection Direction = WormDirection::Left;
+	bool keyPressedLeft;
+	bool keyPressedRight;
+	unsigned int ReconfirmCounter;
 	unsigned int tickCount;
 	unsigned int jumpKey;
 	unsigned int moveLeftKey;
 	unsigned int moveRightKey;
-	double velocity_x;
-	double velocity_y;
 	const double Velocity = 4.5;
 	const double Gravity = 0.24;
-	unsigned int timerTick;
-	unsigned int nro_foto_move;
 	Event lastEvent;
 };
 

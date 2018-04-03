@@ -46,8 +46,8 @@ void GameInit(Userdata& Userdata, Scene& Scene) {
 	Scene.Worm2->setState(WormState::Iddle);
 	Scene.Worm1->setDirection(WormDirection::Right);
 	Scene.Worm2->setDirection(WormDirection::Left);
-	Scene.Worm1->setPosition(Userdata.LeftWall, Userdata.GroundLevel);
-	Scene.Worm2->setPosition(Userdata.RightWall, Userdata.GroundLevel);
+	Scene.Worm1->setPosition(Userdata.LeftWall + 9, Userdata.GroundLevel);
+	Scene.Worm2->setPosition(Userdata.RightWall - 9, Userdata.GroundLevel);
 	Scene.Worm1->clearTickCount();
 	Scene.Worm2->clearTickCount();
 }
