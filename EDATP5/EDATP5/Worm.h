@@ -6,7 +6,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "EventHandling.h"	//clase event
-#include <stdlib.h>
 
 enum class WormState
 {

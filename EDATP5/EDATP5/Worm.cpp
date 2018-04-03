@@ -359,10 +359,6 @@ void Worm::Jump(const Userdata& Userdata) {
 
 void Worm::Draw(const Userdata& Userdata) {
 
-	if (tickCount > 50) {
-		printf("hola");
-	};
-
 	switch (this->Direction) {
 		case WormDirection::Left: {
 			switch (this->State) {
@@ -371,7 +367,7 @@ void Worm::Draw(const Userdata& Userdata) {
 				}
 				case WormState::ReconfirmWalk: {
 					if (this->tickCount <= 49)
-						al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, NULL);
+						al_draw_bitmap(Userdata.WormWalk[tickCount - 35], Position.X, Position.Y, NULL);
 					else if (this->tickCount == 50)
 						al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, NULL);
 					break;
@@ -425,7 +421,7 @@ void Worm::Draw(const Userdata& Userdata) {
 					}
 					case WormState::ReconfirmWalk: {
 					if (this->tickCount <= 49)
-						al_draw_bitmap(Userdata.WormWalk[tickCount - 34], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						al_draw_bitmap(Userdata.WormWalk[tickCount - 35], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
 					else if (this->tickCount == 50)
 						al_draw_bitmap(Userdata.WormWalk[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
 						break;
@@ -490,22 +486,28 @@ void Worm::Refresh(const Userdata& Userdata) {
 			switch (this->Direction) {
 				case WormDirection::Left: {
 					moveLeft(true, Userdata);
+					break;
 				}
 				case WormDirection::Right: {
 					moveRight(true, Userdata);
+					break;
 				}
 			}
+			break;
 		}
 		case (WormState::ReconfirmWalk):
 		{
 			switch (this->Direction) {
 				case WormDirection::Left: {
 					moveLeft(true, Userdata);
+					break;
 				}
 				case WormDirection::Right: {
 					moveRight(true, Userdata);
+					break;
 				}
 			}
+			break;
 		}
 		case (WormState::Walking):
 		{
