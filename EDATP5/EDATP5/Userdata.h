@@ -14,8 +14,8 @@ public:
 	void LoadWormImages();
 
 	const int GroundLevel = 616;
-	const int LeftWall = 701;
-	const int RightWall = 1212;
+	const int LeftWall = 685;
+	const int RightWall = 1170;
 
 	std::array<ALLEGRO_BITMAP*, 15> WormWalk; //Worm walk bitmaps
 	std::string str = "wwalk-F";

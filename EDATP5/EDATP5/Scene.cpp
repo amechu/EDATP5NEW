@@ -23,10 +23,9 @@ void Scene::Refresh(const Userdata& Userdata) {
 	this->Draw(Userdata);
 	this->Worm1->Draw(Userdata);
 	this->Worm2->Draw(Userdata);
-	
+	al_flip_display();
 	this->Worm1->Refresh(Userdata);
 	this->Worm2->Refresh(Userdata);
-	al_flip_display();
 }
 
 

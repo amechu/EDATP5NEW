@@ -87,9 +87,9 @@ void Worm::moveLeft(bool StartOrStop) {
 				tickCount = 0;
 				this->State = WormState::Iddle;
 
-			}
-		}
-		tickCount++;
+	}
+	}
+	tickCount++;
 
 	}
 }
@@ -120,12 +120,12 @@ void Worm::moveRight(bool StartOrStop) {
 			}
 			else
 			{
-				this->State == WormState::Iddle;
+				this->State = WormState::Iddle;
 			}
 		}
 		if ((tickCount>5) && (tickCount<50))
 		{
-			this->State == WormState::Walking;
+			this->State = WormState::Walking;
 		}
 
 		if ((tickCount < 5) && (this->State == WormState::Iddle))			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
@@ -164,47 +164,48 @@ void Worm::moveRight(bool StartOrStop) {
 	}
 }
 
+void Worm::Jump(const Userdata& Userdata) {
+	
+	double Linear;
+	double Cuadratic;
 
-void Worm::Jump() {
-	if ((this->State == WormState::Iddle) || (this->State == WormState::Jumping))
-	{
-		if (timerTick == 0)
-		{
-			velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
-			velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
+	if (this->State == WormState::Iddle || this->State == WormState::Jumping) {
+
+		if (this->State == WormState::Iddle)
 			this->State = WormState::Jumping;
-		}
-		else
-		{
-			if (velocity_y == -((VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W))	//cuando la velocidad y es igual a -velocidad_y inicial, termino el salto
-			{
-				velocity_y = 0;
-				velocity_x = 0;
-				this->State = WormState::Iddle;
-				//Terminar salto
+
+		this->tickCount++;
+		if (this->Direction == WormDirection::Left) {
+
+			if (this->tickCount <= 32) {
+				if (Position.X > Userdata.LeftWall + (this->Velocity * cos(M_PI / 3))) {
+					this->Position.X -= (this->Velocity * cos(M_PI / 3));
+				}
+				Linear = this->Velocity * sin(M_PI / 3) * tickCount;
+				Cuadratic = (((this->Gravity) / 2) * tickCount * tickCount);
+				this->Position.Y = Userdata.GroundLevel - Linear + Cuadratic;
 			}
-			else
-			{
-				switch (this->Direction)	//el cambio de la posicion x dependera de la direccion del worm
-				{
-				case (WormDirection::Left):
-				{
-					Position.X -= velocity_x;
-					Position.Y += velocity_y;
-					break;
+			else {
+				this->tickCount = 0;
+				this->State = WormState::Iddle;
+			}
+		}
+		else if (this->Direction == WormDirection::Right) {
+
+			if (this->tickCount <= 32) {
+				if (Position.X < Userdata.RightWall - (this->Velocity * cos(M_PI / 3))) {
+					this->Position.X += (this->Velocity * cos(M_PI / 3));
 				}
-				case(WormDirection::Right):
-				{
-					Position.X += velocity_x;
-					Position.Y += velocity_y;
-					break;
-				}
-				}
-				velocity_y -= G_PER_TICK;	//cambio al velocidad cada tick
+				Linear = this->Velocity * sin(M_PI / 3) * tickCount;
+				Cuadratic = (((this->Gravity) / 2) * tickCount * tickCount);
+				this->Position.Y = Userdata.GroundLevel - Linear + Cuadratic;
+			}
+			else {
+				this->tickCount = 0;
+				this->State = WormState::Iddle;
 			}
 		}
 	}
-
 }
 
 
@@ -248,8 +249,8 @@ void Worm::Draw(const Userdata& Userdata) {
 						al_draw_bitmap(Userdata.WormJump[tickCount], Position.X, Position.Y, NULL);
 					else if (tickCount <= 26)
 						al_draw_bitmap(Userdata.WormJump[3], Position.X, Position.Y, NULL);
-					else if (tickCount <= 33)
-						al_draw_bitmap(Userdata.WormJump[tickCount - 22], Position.X, Position.Y, NULL);
+					else if (tickCount <= 32)
+						al_draw_bitmap(Userdata.WormJump[tickCount - 23], Position.X, Position.Y, NULL);
 					break;
 				}
 			}
@@ -293,11 +294,11 @@ void Worm::Draw(const Userdata& Userdata) {
 				}
 				case WormState::Jumping: {
 					if (tickCount <= 2)
-						al_draw_bitmap(Userdata.WormJump[tickCount], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-					else if (tickCount <= 26)
-						al_draw_bitmap(Userdata.WormJump[3], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
-					else if (tickCount <= 33)
-						al_draw_bitmap(Userdata.WormJump[tickCount - 22], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+						al_draw_bitmap(Userdata.WormJump[tickCount-1], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					else if (tickCount <= 25)
+						al_draw_bitmap(Userdata.WormJump[2], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
+					else if (tickCount <= 32)
+						al_draw_bitmap(Userdata.WormJump[tickCount - 23], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL);
 					break;
 				}
 			}
@@ -315,18 +316,21 @@ void Worm::Refresh(const Userdata& Userdata) {
 		}
 		case (WormState::Walking):
 		{
-			if (this->Direction == WormDirection::Left)
-			{
-				moveLeft(true);
-			}
-			else {
-				moveRight(true);
+			switch (this->Direction) {
+				case WormDirection::Left: {
+					moveLeft(true);
+					break;
+				}
+				case WormDirection::Right: {
+					moveRight(true);
+					break;
+				}
 			}
 			break;
 		}
 		case (WormState::Jumping):
 		{
-			Jump();
+			Jump(Userdata);
 			break;
 		}
 
@@ -334,25 +338,9 @@ void Worm::Refresh(const Userdata& Userdata) {
 	}
 }
 
-
-void Worm::increase_timerTick()
+void Worm::clearTickCount()
 {
-	timerTick++;
-}
-
-void Worm::clear_timerTick()
-{
-	timerTick = 0;
-}
-
-Event Worm::get_last_event()
-{
-	return lastEvent;
-}
-
-void Worm::set_last_event(Event evento)
-{
-	lastEvent = evento;
+	this->tickCount = 0;
 }
 void Worm::setState(WormState state) {
 	this->State = state;
