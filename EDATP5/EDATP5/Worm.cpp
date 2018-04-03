@@ -17,6 +17,7 @@ Worm::Worm(const Userdata& Userdata, unsigned int keySet)
 			this->moveRightKey = Userdata.worm2KeySet[2];
 		}
 	}
+	tickCount = 0;
 }
 
 
@@ -35,6 +36,7 @@ void Worm::moveLeft(bool StartOrStop) {
 				
 				this->Direction = WormDirection::Left;
 				this->State = WormState::Iddle;
+				tickCount = 0;
 			}
 			else if (((tickCount <5) || (tickCount > 45))&&(this->State == WormState::Walking))	//Si me levantan la tecla entre los 900ms y los 1100ms entonces hago un ciclo e walking
 			{
@@ -52,7 +54,7 @@ void Worm::moveLeft(bool StartOrStop) {
 		}
 		if ((tickCount>5)&&(tickCount<50))
 		{
-			this->State == WormState::Walking;
+			this->State = WormState::Walking;
 		}
 		
 		if ((tickCount < 5) && (this->State == WormState::Iddle))			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
@@ -67,12 +69,12 @@ void Worm::moveLeft(bool StartOrStop) {
 		}
 		if (this->State == WormState::Walking)
 		{
-			if (tickCount < 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
+			if (tickCount <= 50 && tickCount>7 /*|| ((tickCount == 8) && (this->State == WormState::Walking))*/)	//Si es el primer ciclo, o si termino el primer ciclo, pero sigo levantando
 			{
 				if ((tickCount-8!=0)&&(((tickCount - 8) % 14) == 0))	//Cambio la posicion cuando el timer tick sea multiplo de 14 me salteo el caso que tickcount igual a 0
 
 				{
-					if ((Position.X > 701) && (Position.X < 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
+					if ((Position.X > 701) && (Position.X <= 1212))	//Si esta dentro de los parametros se mueve, sino no hace nada
 					{
 						
 						Position.X -= 9;
@@ -80,9 +82,10 @@ void Worm::moveLeft(bool StartOrStop) {
 					}
 				}
 			}
-			else if (tickCount<50)
+			else if (tickCount>50)
 			{
 				tickCount = 0;
+				this->State = WormState::Iddle;
 
 			}
 		}
@@ -95,13 +98,16 @@ void Worm::moveLeft(bool StartOrStop) {
 void Worm::moveRight(bool StartOrStop) {
 	if ((this->State == WormState::Iddle) || ((this->State == WormState::Walking) && (this->Direction == WormDirection::Right)))
 	{
+		tickCount++;
+
 		if (!StartOrStop)
 		{
 			if ((tickCount < 5) && (this->State == WormState::Iddle))	//Si levanto y el ticker es menor a 5 entonces solo le cambio la direccion y lo dejo en idle
 			{
 
-				this->Direction = WormDirection::Left;
+				this->Direction = WormDirection::Right;
 				this->State = WormState::Iddle;
+				tickCount = 0;
 			}
 			else if (((tickCount <5) || (tickCount > 45)) && (this->State == WormState::Walking))	//Si me levantan la tecla entre los 900ms y los 1100ms entonces hago un ciclo e walking
 			{
@@ -124,7 +130,7 @@ void Worm::moveRight(bool StartOrStop) {
 
 		if ((tickCount < 5) && (this->State == WormState::Iddle))			//Si tan solo tickeo 5 veces, es inferior a 100 ms entonces solo cambia de direccion
 		{
-			this->Direction = WormDirection::Left;	//SI esta idle entonces es la primera vez que empiezo a moverme, espero hasta que pasen los primeros ticks y despues sigo
+			this->Direction = WormDirection::Right;	//SI esta idle entonces es la primera vez que empiezo a moverme, espero hasta que pasen los primeros ticks y despues sigo
 
 
 		}
@@ -150,10 +156,10 @@ void Worm::moveRight(bool StartOrStop) {
 			else if (tickCount<50)
 			{
 				tickCount = 0;
-
+				this->State = WormState::Iddle;
 			}
 		}
-		tickCount++;
+		//tickCount++;
 
 	}
 }
@@ -162,7 +168,7 @@ void Worm::moveRight(bool StartOrStop) {
 void Worm::Jump() {
 	if ((this->State == WormState::Iddle) || (this->State == WormState::Jumping))
 	{
-		if (timerTick = 0)
+		if (timerTick == 0)
 		{
 			velocity_y = (VEL_JUMP * sin((60.0 / 180.0)*M_PI)) / FPS_W;	//En el primer instante cambio la velocidad
 			velocity_x = (VEL_JUMP * cos((60.0 / 180.0)*M_PI)) / FPS_W;	//Divido por FPS_W asio me queda la velocidad por frame
@@ -252,7 +258,7 @@ void Worm::Draw(const Userdata& Userdata) {
 		case WormDirection::Right: {
 			switch (this->State) {
 				case WormState::Iddle: {
-					al_draw_bitmap(Userdata.WormWalk[0], 701, 616, ALLEGRO_FLIP_HORIZONTAL); break;
+					al_draw_bitmap(Userdata.WormWalk[0], Position.X, Position.Y, ALLEGRO_FLIP_HORIZONTAL); break;
 				}
 				case WormState::Walking: {
 					if (this->tickCount <= 5) {

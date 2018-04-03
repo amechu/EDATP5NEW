@@ -12,6 +12,10 @@ int main(void) {
 	EventGenerator EventGenerator;
 	Event Event = Event::noEvent;
 	Dispatcher Dispatcher;
+	Dispatcher.key_left2_held = false;
+	Dispatcher.key_left1_held = false;
+	Dispatcher.key_right2_held = false;
+	Dispatcher.key_right1_held = false;
 	Userdata Userdata;
 	Allegro Allegro;
 	Scene Scene;
@@ -28,8 +32,9 @@ int main(void) {
 		Scene.Worm2->setState(WormState::Iddle);
 		Scene.Worm1->setDirection(WormDirection::Right);
 		Scene.Worm2->setDirection(WormDirection::Left);
-		Scene.Worm1->setPosition(Userdata.LeftWall , Userdata.GroundLevel);
+		Scene.Worm1->setPosition(Userdata.LeftWall + 200 , Userdata.GroundLevel);
 		Scene.Worm2->setPosition(Userdata.RightWall , Userdata.GroundLevel);
+		
 		//////////////////////////////////////////////////////////////////////////////////
 
 		while (Event != Event::Quit) {
