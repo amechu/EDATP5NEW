@@ -9,7 +9,7 @@
 
 enum class WormState
 {
-	Iddle, Walking, Jumping
+	Iddle, Walking, Jumping, WaitingToWalk, WaitingToReconfirm
 };
 
 enum class WormDirection {
@@ -27,8 +27,8 @@ class Worm
 public:
 	Worm(const Userdata& Userdata, unsigned int keySet);
 	~Worm();
-	void moveLeft(bool startorstop);
-	void moveRight(bool startorstop);
+	void moveLeft(bool startorstop, const Userdata& Userdata);
+	void moveRight(bool startorstop, const Userdata& Userdata);
 	void Jump(const Userdata& Userdata);
 	void Draw(const Userdata& Userdata);
 	void Refresh(const Userdata& Userdata);

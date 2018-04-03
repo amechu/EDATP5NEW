@@ -14,10 +14,6 @@ int main(void) {
 	EventGenerator EventGenerator;
 	Event Event = Event::noEvent;
 	Dispatcher Dispatcher;
-	Dispatcher.key_left2_held = false;
-	Dispatcher.key_left1_held = false;
-	Dispatcher.key_right2_held = false;
-	Dispatcher.key_right1_held = false;
 	Userdata Userdata;
 	Allegro Allegro;
 	Scene Scene;
