@@ -42,12 +42,12 @@ void GameInit(Userdata& Userdata, Scene& Scene) {
 	Userdata.LoadWormImages();
 	Scene.LoadWorm1(Userdata, 1); //Worm inicializado con keyset 1
 	Scene.LoadWorm2(Userdata, 2); //Worm inicializado con keyset 2
-	Scene.Worm1->clear_timerTick();
-	Scene.Worm2->clear_timerTick();
 	Scene.Worm1->setState(WormState::Iddle);
 	Scene.Worm2->setState(WormState::Iddle);
 	Scene.Worm1->setDirection(WormDirection::Right);
 	Scene.Worm2->setDirection(WormDirection::Left);
 	Scene.Worm1->setPosition(Userdata.LeftWall, Userdata.GroundLevel);
 	Scene.Worm2->setPosition(Userdata.RightWall, Userdata.GroundLevel);
+	Scene.Worm1->clearTickCount();
+	Scene.Worm2->clearTickCount();
 }

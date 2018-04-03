@@ -32,10 +32,7 @@ public:
 	void Jump(const Userdata& Userdata);
 	void Draw(const Userdata& Userdata);
 	void Refresh(const Userdata& Userdata);
-	void increase_timerTick();
-	void clear_timerTick();
-	Event get_last_event();
-	void set_last_event(Event evento);
+	void clearTickCount();
 	void setState(WormState state);
 	void setDirection(WormDirection direction);
 	void setPosition(int x, int y);
