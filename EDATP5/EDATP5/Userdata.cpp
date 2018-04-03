@@ -9,6 +9,8 @@ Userdata::Userdata()
 	for (int i = 0; i < 10; i++)
 		this->WormJump[i] = NULL;
 	this->Background = NULL;
+	this->WindowsBackground = NULL;
+
 }
 
 
@@ -24,6 +26,7 @@ Userdata::~Userdata()
 	}
 
 	al_destroy_bitmap(this->Background);
+	al_destroy_bitmap(this->WindowsBackground);
 }
 
 void Userdata::LoadWormImages() {
@@ -39,3 +42,4 @@ void Userdata::LoadWormImages() {
 		this->WormJump[i - 1] = al_load_bitmap(string.c_str());
 	}
 }
+

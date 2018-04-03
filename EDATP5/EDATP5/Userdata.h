@@ -3,6 +3,12 @@
 #include "allegro5\allegro_image.h"
 #include <string>
 #include <array>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+
+#define JUMP_MUSIC "Super Mario Bros - Jump Sound Effect.wav"
+
+
 
 enum {Jump, Left, Right, TotalActions};
 
@@ -12,6 +18,7 @@ public:
 	Userdata();
 	~Userdata();
 	void LoadWormImages();
+
 
 	const int GroundLevel = 616;
 	const int LeftWall = 685;
@@ -26,6 +33,9 @@ public:
 	std::string NG = ".png";
 
 	ALLEGRO_BITMAP *Background;
+	ALLEGRO_BITMAP *WindowsBackground;
+
+
 
 	//Worm 1 keys
 	unsigned int worm1KeySet[TotalActions] = { ALLEGRO_KEY_W, ALLEGRO_KEY_A, ALLEGRO_KEY_D };

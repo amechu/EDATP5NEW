@@ -142,5 +142,19 @@
     <Image Include="wwalk-F15.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="stars.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="shooting_stars.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Super Mario Bros Soundtrack.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Super Mario Bros - Jump Sound Effect.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

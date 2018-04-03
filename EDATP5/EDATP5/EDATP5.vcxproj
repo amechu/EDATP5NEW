@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Scenario.png" />
+    <Image Include="stars.png" />
     <Image Include="wjump-F1.png" />
     <Image Include="wjump-F10.png" />
     <Image Include="wjump-F2.png" />
@@ -177,6 +178,11 @@
     <Image Include="wwalk-F7.png" />
     <Image Include="wwalk-F8.png" />
     <Image Include="wwalk-F9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="shooting_stars.wav" />
+    <Media Include="Super Mario Bros - Jump Sound Effect.wav" />
+    <Media Include="Super Mario Bros Soundtrack.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

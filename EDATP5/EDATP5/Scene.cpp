@@ -13,6 +13,7 @@ Scene::~Scene()
 
 
 void Scene::Draw(const Userdata& Userdata) {
+	al_draw_bitmap(Userdata.WindowsBackground, 0, 0, NULL);
 	al_draw_bitmap(Userdata.Background, 0, 0, NULL);
 }
 

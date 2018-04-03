@@ -317,6 +317,8 @@ void Worm::Jump(const Userdata& Userdata) {
 	double Linear;
 	double Cuadratic;
 
+
+
 	if (this->State == WormState::Iddle || this->State == WormState::Jumping) {
 
 		if (this->State == WormState::Iddle)
